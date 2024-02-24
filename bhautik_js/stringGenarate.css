@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #f4b41f, #47913f);
+    color: #fff;
+  }
+
+  h2{
+    justify-content: center;
+    align-items: center;
+    color: rgb(1, 71, 247);
+    font-size: 80px;
+  }
+
+  h{
+    justify-content: center;
+    align-items: center;
+    color: rgb(1, 1, 1);
+    font-size: 60px;
+  }
+
+  #submit{
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #0324fb, #fc0404);
+    color: #fff;
+  }
