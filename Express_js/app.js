@@ -1,33 +1,35 @@
-const express = require('express');
-const app = express();  // server create 
+const express =require("express")
+const app = express();
 const port = 7070;
 const morgan = require('morgan');
 
-// middleware 
 
-let myFun = (req,res,next) => {
-    // consolo.log(req,query)
+// MIDDLEWARE
 
-    if ((req.query.age) >= 18){
+let myFun = (req, res, next) => {
+    // console.log(req.query);
+
+    if((req.query.age) >= 18 ) {
+
         next();
-    }
-    else {
-        res.send('sorry! you have under below 18');
+
+    } else 
+    {
+        res.send("Sorry! You have Under below 18");
     }
 }
 
-// app.use(myFun);   // Application Level middleware
+// app.use(myFun);  // Application leval middleware
 
-app.use(express.json());      // built-in 
+app.use(express.json());  // Built-In
 app.use(morgan('dev'));
-app.get('/',myFun,(req,res)=> {
-    res.send('Welcome to Express JS');
+app.get('/', myFun, (req,res) => {
+    res.send("welcome to Express.js");
 });
 
 app.post('/',(req,res)=> {
-    res.send('post Methos');
+    res.send ("Post Method ");
 });
-
-app.listen(post, ()=> {
-    console.log('Server start at http://localhost:7070');
-})
+app.listen(port,() => {
+    console.log("Server start at port http://localhost:7070");
+});
