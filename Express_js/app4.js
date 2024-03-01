@@ -7,14 +7,14 @@ const products = require('./public.json');
 // Middleware
 
 app.use(express.json());
-app.use(morgan('dev'));
+app.use(morgan('dev')); 
 
 // End-point - CRUD
 
-app.post('./products',(req,res)=> {
+app.post('/products',(req,res)=> {
     // console.log(req.body);
     const product = req.body;
-    product.push(product);
+    products.push(product);
     // products.push({...req.body});
     res.status(201).json({message: 'Product is Added....'})
 });
@@ -42,10 +42,10 @@ app.put('/products/replace-product',(req,res) => {
 
 //  Update Single product 
 
-app.patch('products/upadate-product',(req, res) => {
+app.patch('/products/upadate-product',(req, res) => {
     const id = +req.query.id;
     let productIndex = products.findIndex((item) => item.id === id)
-    let product = products[productsIndex];
+    let product = products[productIndex];
     let item = products.splice(productIndex, 1 , { ...product, ...req.body});
     // console.log(product);
     res.status(200).json({message: 'Product Update successFully.....'});
@@ -53,11 +53,11 @@ app.patch('products/upadate-product',(req, res) => {
 
 // Delete single Product 
 
-app.delete('products/delete-product',(req, res) => {
+app.delete('/products/delete-product',(req, res) => {
     const id = +req.query.id;
     let productsIndex = products.findIndex((item) => item.id === id)
-    let product = products[productIndex];
-    let item = products.splice(productIndex, 1);
+    let product = products[productsIndex];
+    let item = products.splice(productsIndex, 1);
     // console.log();
     res.status(200).json({message: 'product Delete succssFully....'});
 });

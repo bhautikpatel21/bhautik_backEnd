@@ -1,1 +1,1 @@
-/single-product
+/products/replace-product
