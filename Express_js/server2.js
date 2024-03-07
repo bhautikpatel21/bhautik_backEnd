@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 7878;
+const port = 8080;
 const morgan = require('morgan');
 
 const mongoose = require('mongoose');
@@ -26,6 +26,9 @@ app.use('/api/user',userRoutes)
 // const userRoutes = require('./Routes/user.routes');
 // app.use('/users',userRoutes);
 
+const  product2Routes = require('./Routes/product2.routes');
+app.use('/products',product2Routes);
+
 app.listen(port,()=> {
-    console.log('server start at http://localhost:7878');
+    console.log('server start at http://localhost:8080');
 })

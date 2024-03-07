@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.18.3",
     "mongoose": "^8.2.1",
+    "moongoose": "^0.0.5",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
@@ -12,7 +14,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node app4.js",
-    "dev": "nodemon app4.js"
+    "dev": "nodemon server2.js"
   },
   "author": "",
   "license": "ISC",
