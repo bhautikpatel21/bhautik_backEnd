@@ -3,7 +3,7 @@ const product2Routes = express.Router();
 
 const { 
     addProduct,
-    getAllProduct,
+    getAllProducts,
     getProduct,
     updateProduct,
     deleteProduct
@@ -12,7 +12,7 @@ const {
 
    product2Routes.post('/add-product',addProduct);
    product2Routes.get('/get-product',getProduct);
-   product2Routes.get('/get-all-product',getAllProduct);
+   product2Routes.get('/get-all-product',getAllProducts);
    product2Routes.put('/update-product',updateProduct);
    product2Routes.delete('/delete-product',deleteProduct);
 

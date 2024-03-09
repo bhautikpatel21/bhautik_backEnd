@@ -26,7 +26,7 @@ exports.replaceuser = (req,res) => {
     let users = users[userIndex];
     users.splice(userIndex,1 ,{...req.body});
     // console.log(users);
-    res.status(200).json({ message : 'userss Replace SucessFully...'});
+    res.status(200).json({ message : 'users Replace SucessFully...'});
 
 };
 
