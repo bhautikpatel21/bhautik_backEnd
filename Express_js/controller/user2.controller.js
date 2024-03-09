@@ -1,10 +1,10 @@
 const User = require('../model/user2.model');
 const bcrypt = require('bcrypt');
-cont jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
-exports.registerUser = async (res,res) => {
+exports.registerUser = async (req,res) => {
   try {
-    const {firstName ,lastName, gender ,email, passworld,age } = req.body;
+    const {firstName ,lastName, gender ,email, password,age } = req.body;
     let user = await User.findOne({email: email, isDelete: false});
     if(user) {
       return res.status(400).json({ message: 'User is already registered....'})
@@ -49,13 +49,13 @@ exports.loginUser = async (req, res) => {
 
 exports.addUser = async (req , res) =>  {
     try {
-        const {firstName ,lastName, gender ,email, passworld,age } = req.body;
+        const {firstName ,lastName, gender ,email, password,age } = req.body;
         console.log(req.body) 
         let newUser =   await User.create ({
             firstName,
             lastName,
             email,
-            passworld,
+            password,
             age,
             gender
         });
@@ -82,7 +82,7 @@ exports.getUser = async (req,res) => {
   try {
     let userId = req.query.userId;
     // let user = await User.findById(userId);
-    let user = await User.findOne({ firstName: userId });
+    let user = await User.findOne({_id : userId,isDelete : false });
 
     if(!user) {
        return res.status(404).json({message: 'User not found'});
