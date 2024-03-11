@@ -24,8 +24,8 @@ userRoutes.get('/get-user',verifyToken, getUser);
 userRoutes.post('/register-user', registerUser);
 userRoutes.post('/login-user', loginUser);
 userRoutes.post('/add-user', addUser);
-userRoutes.get('/get-all-users', getAllUsers);
-userRoutes.get('/get-user', getUser);
+// userRoutes.get('/get-all-users', getAllUsers);
+// userRoutes.get('/get-user', getUser);
 userRoutes.put('/update-user', updateUser);
 userRoutes.delete('/delete-user', deleteUser);
 

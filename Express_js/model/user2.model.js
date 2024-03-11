@@ -20,6 +20,10 @@ const userSchema = mongoose.Schema ({
     },
     age : {
         type : String 
+    },
+    isDelete : {
+        type: Boolean,
+        default : false
     }
 });
 

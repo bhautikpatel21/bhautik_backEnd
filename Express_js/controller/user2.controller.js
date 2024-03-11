@@ -15,7 +15,7 @@ exports.registerUser = async (req,res) => {
     user = await User.create({
       firstName ,lastName,
       gender ,email, 
-      passworld: hashPassword,
+      password: hashPassword,
       age
     });
     user.save();
@@ -30,6 +30,7 @@ exports.registerUser = async (req,res) => {
 exports.loginUser = async (req, res) => {
   try {
     let user = await User.findOne({ email: req.body.email, isDelete: false });
+    // console.log(user);
     if(!user) {
       return res.status(404).json({ message: 'User is not found'});
     }
@@ -71,6 +72,7 @@ exports.addUser = async (req , res) =>  {
 exports.getAllUsers = async (req, res) => {
   try {
     let users = await User.find();
+    console.log("dsfgvbfbgdf",users);
     res.status(200).json(users);
   } catch (error){
     console.log(error);
@@ -80,7 +82,7 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getUser = async (req,res) => {
   try {
-    let userId = req.query.userId;
+    let userId = req.query.user._Id;
     // let user = await User.findById(userId);
     let user = await User.findOne({_id : userId,isDelete : false });
 
