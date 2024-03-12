@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 const morgan = require('morgan');
 
 const mongoose = require('mongoose');
@@ -33,5 +33,6 @@ app.use('/api/user',userRoutes)
 // app.use('/products',product2Routes);
 
 app.listen(port,()=> {
-    console.log('server start at http://localhost:8080');
+    console.log(`server start at http://localhost:${port}`);
+
 })
