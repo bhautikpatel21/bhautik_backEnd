@@ -1,4 +1,4 @@
-const product = require('../model/product2.model');
+const Product = require('../model/product2.model');
 // const bcrypt = require('bcrypt');
 
 exports.addProduct = async (req,res) => {

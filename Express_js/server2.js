@@ -20,8 +20,11 @@ main()
 app.use(express.json());
 app.use(morgan('dev'));
 
-const userRoutes= require('./Routes/user2.routes');
-app.use('/api/user',userRoutes)
+const cartRoutes = require('./Routes/cart.routes')
+app.use('/api/cart',cartRoutes);
+
+// const userRoutes= require('./Routes/user2.routes');
+// app.use('/api/user',userRoutes)
 
 // const productRoutes = require('./Routes/product.routes');
 // app.use('/products',productRoutes);
@@ -30,7 +33,7 @@ app.use('/api/user',userRoutes)
 // app.use('/users',userRoutes);
 
 // const  product2Routes = require('./Routes/product2.routes');
-// app.use('/products',product2Routes);
+// app.use('/api/products',product2Routes);
 
 app.listen(port,()=> {
     console.log(`server start at http://localhost:${port}`);
