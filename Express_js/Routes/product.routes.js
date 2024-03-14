@@ -1,29 +1,19 @@
 const express = require('express');
-const productRoutes = express.Router();
-const { addProduct,
-    deleteProduct,
-    getAllProduct,
+const product2Routes = express.Router();
+
+const { 
+    addProduct,
+    getAllProducts,
     getProduct,
-    replaceProduct,
-    updateProduct
-    } = require('../controller/product.controller');
+    updateProduct,
+    deleteProduct
 
-        // Create Product
-    productRoutes.post('/',addProduct);
+} = require('../controller/product2.controller');
 
-        // Get All Product
-    productRoutes.get('/',getAllProduct);
+   product2Routes.post('/add-product',addProduct);
+   product2Routes.get('/get-product',getProduct);
+   product2Routes.get('/get-all-product',getAllProducts);
+   product2Routes.put('/update-product',updateProduct);
+   product2Routes.delete('/delete-product',deleteProduct);
 
-        // Get Single Product
-    productRoutes.get('/single-product',getProduct);
-
-        // Replace Single Product
-    productRoutes.get('/replace-product',replaceProduct);
-    
-        // Update SIngle Product
-    productRoutes.get('/update-product',updateProduct);
-
-        // delete SIngle Product
-    productRoutes.get('/delete-product',deleteProduct);
-    
-    module.exports = productRoutes;
+   module.exports = product2Routes ;

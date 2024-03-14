@@ -1,51 +1,134 @@
-const users = require('../product.json');
+const User = require('../model/user.model');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-exports.adduser = (req,res) => {
-     // console.log(req.body);   
-     const user = req.body;
-     users.push(user);
-     // users.push({...req.body});
-     res.status(201).json({ message : "users Is Added...."});
+exports.registerUser = async (req,res) => {
+  try {
+    const {firstName ,lastName, gender ,email, password,age } = req.body;
+    let user = await User.findOne({email: email, isDelete: false});
+    if(user) {
+      return res.status(400).json({ message: 'User is already registered....'})
+    }
+    // hash password 
+
+    let hashPassword = await bcrypt.hash(password,10);
+    user = await User.create({
+      firstName ,lastName,
+      gender ,email, 
+      password: hashPassword,
+      age
+    });
+    user.save();
+    res.status(201).json({ user: user, message: 'New User is Added'});
+  }
+  catch(error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal server error'});
+  }
 };
 
-exports.getAllUser = (req,res) => {
-    res.status(201).json(users);
+exports.loginUser = async (req, res) => {
+  try {
+    let user = await User.findOne({ email: req.body.email, isDelete: false });
+    // console.log(user);
+    if(!user) {
+      return res.status(404).json({ message: 'User is not found'});
+    }
+    let checkPassword = await bcrypt.compare(req.body.password, user.password);
 
+    if(!checkPassword) {
+      return res.status(400).json({ message: 'Password is not match...'})
+    }
+    let token = jwt.sign({ userId: user._id }, 'Skillqode');
+    res.status(200).json({ token,message: 'Login successfully'})
+  }
+  catch(error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal Server error'});
+  }
 };
 
-exports.getuser = (req,res) => {
-    const id = +req.query.id;
-    // console.log(id);
-    let users = users.find((item) => item.id === id);
+exports.addUser = async (req , res) =>  {
+    try {
+        const {firstName ,lastName, gender ,email, password,age } = req.body;
+        console.log(req.body) 
+        let newUser =   await User.create ({
+            firstName,
+            lastName,
+            email,
+            password,
+            age,
+            gender
+        });
+        newUser.save();
+        res.status(201).json ({user : newUser, message : 'new User Added'});
+    } catch (error)
+      {
+        console.log(error);
+        res.status(500).json({Message : 'Internal Server Error'})
+      }
+}
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    let users = await User.find();
+    console.log("dsfgvbfbgdf",users);
     res.status(200).json(users);
+  } catch (error){
+    console.log(error);
+    res.status(500).json({ message: 'Internal Server Error'});
+  }
 };
 
-exports.replaceuser = (req,res) => {
-    const id = +req.query.id;
-    let userIndex = users.findIndex((item) => item.id === id) 
-    let users = users[userIndex];
-    users.splice(userIndex,1 ,{...req.body});
-    // console.log(users);
-    res.status(200).json({ message : 'users Replace SucessFully...'});
+exports.getUser = async (req,res) => {
+  try {
+    let userId = req.query.user._Id;
+    // let user = await User.findById(userId);
+    let user = await User.findOne({_id : userId,isDelete : false });
 
+    if(!user) {
+       return res.status(404).json({message: 'User not found'});
+    }
+    res.status(200).json(user);
+  }
+  catch(error) {
+    console.log(error);
+    res.status(500).json({ message : 'Internal Server Error'});
+  }
 };
 
-exports.updateuser = (req,res) => {
-    const id = +req.query.id;
-    let userIndex = users.findIndex((item) => item.id === id) 
-    let users = users[userIndex];
-    let item = users.splice(userIndex,1 ,{ ...users, ...req.body});
-    // console.log(users);
-    res.status(200).json({ message : ' userss update SucessFully...'});
-
+exports.updateUser = async (req,res) => {
+  try {
+    let userId = req.query.userId;
+    let user = await User.findById(userId);
+    if(!user) {
+       return res.status(404).json({message: 'User not found'});
+    }
+    // user = await User.findByIdAndUpadate(user._id, { $set: {...req.body} }, { new: true});
+    user = await User.findOneAndUpdate({_id:user._id},{ $set: {...req.body} }, { new: true});
+    res.status(200).json({user, message: 'User Updated...'});
+  }
+  catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal server error'});
+  }
 };
 
-exports.deleteUser = (req,res) => { 
-    const id = req.query.id;
-    let userIndex = users.findIndex((item) => item.id === id) 
-    let user = users[userIndex];
-    users.splice(userIndex,1);
-    // console.log(users);
-    res.status(200).json({ message : ' user Delete SucessFully...'});
 
+exports.deleteUser = async (req, res) => {
+  try {
+    let userId = req.query.userId;
+    let user = await User.findById(userId);
+
+    if(!user) {
+      return res.status(404).json({ message: 'User not found...'});
+    }
+    // user = await User.findByIdandDelete(user._id);
+    user = await User.findOneAndDelete({_id:user._id});
+    res.status(200).json({user, message: 'User deleted...'});
+  }
+  catch(error) {
+    console.log(error);
+    res.status(500).json({ message: 'Interanal server Error'});
+  }
 };

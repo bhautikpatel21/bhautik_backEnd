@@ -1,48 +1,41 @@
-// const express = require("express");
-// const server = express();  //  Server Create
+require('dotenv').config();
+const express = require('express');
+const app = express();
+const port = process.env.PORT;
+const morgan = require('morgan');
 
-// server.get('/',(req,res) => {
-//     res.end("Welocme To Express.Js");
-// })
-// server.get('/user',(req,res) => {
-//     res.end("Welocme To User Page");
-// })
-// server.get('/product',(req,res) => {
-//     res.end("Welocme To Products List");
-// })
-// server.get('/name',(req,res) => {
-//     res.end(" Name Only Shared");
-// })
-// server.get('/',(req,res) => {
-//     res.end("Welocme To Express");
-// })
+const mongoose = require('mongoose');
+// Database connection
 
-// server.listen(4000,()=>{
-//         console.log("Server Start Port At http://localhost:4000");
-// });
+async function main() {
+    // await mongoose.connect('mongodb://127.0.0.1:27017/User2');
+    // await mongoose.connect('mongodb+srv://bdudhat293:282868b@cluster0.zig8w5h.mongodb.net/bhautik');
+    await mongoose.connect(process.env.MONGO_DB_URL);
+}
+main()
+.then(()=>console.log('DB is connected...'))
+.catch(err => console.log(err));
 
-const express = require("express");
-const server = express();
-const path = require("path");
+// MiddleWare 
+app.use(express.json());
+app.use(morgan('dev'));
 
-server.post("/" ,(req,res) => {
-    res.send("post Method");
-});
-server.get("/" ,(req,res) => {
-    res.end("Welcome to Express.Js");
-});
-server.put("/" ,(req,res) => {
-    res.status(400).json({"massage" : "Put Call Method"});
-});
-server.patch("/" ,(req,res) => {
-    res.sendFile(path.join(__dirname,"abc.txt"));
-});
-server.delete("/" ,(req,res) => {
-    res.sendStatus(201);
-});
+const cartRoutes = require('./Routes/cart.routes')
+app.use('/api/cart',cartRoutes);
 
+// const userRoutes= require('./Routes/user2.routes');
+// app.use('/api/user',userRoutes)
 
-server.listen(4040,() => {
-    console.log("Server start At http://localhost:4040");
+// const productRoutes = require('./Routes/product.routes');
+// app.use('/products',productRoutes);
 
-});
+// const userRoutes = require('./Routes/user.routes');
+// app.use('/users',userRoutes);
+
+// const  product2Routes = require('./Routes/product2.routes');
+// app.use('/api/products',product2Routes);
+
+app.listen(port,()=> {
+    console.log(`server start at http://localhost:${port}`);
+
+})

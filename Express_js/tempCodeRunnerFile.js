@@ -1,1 +1,0 @@
-mongodb+srv://bdudhat293:<password>@cluster0.zig8w5h.mongodb.net/bhautik');
