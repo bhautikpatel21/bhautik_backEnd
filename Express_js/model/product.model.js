@@ -1,4 +1,4 @@
-const mongoose = require ('mongoose');
+const mongoose = require('mongoose');
 
 const productSchma = mongoose.Schema ({
 
@@ -16,6 +16,11 @@ const productSchma = mongoose.Schema ({
 
     catagory : {
         type: String
+    },
+
+    isDelete: {
+        type: Boolean,
+        default : false
     }
 });
 

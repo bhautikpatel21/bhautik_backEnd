@@ -12,19 +12,18 @@ const { verifyToken } = require('../helpers/verifyToken');
 const { 
     registerUser,
     loginUser,
-    // addUser,
+    addUser,
+    getUser,
     getAllUsers,  
     updateUser,
     deleteUser
-} = require('../controller/user2.controller');
+} = require('../controller/user.controller');
 
 userRoutes.get('/get-all-users',verifyToken, getAllUsers);
-// userRoutes.get('/get-user',verifyToken, getUser)
+userRoutes.get('/get-user',verifyToken, getUser)
 userRoutes.post('/register-user', registerUser);
 userRoutes.post('/login-user', loginUser);
-// userRoutes.post('/add-user', addUser);
-// userRoutes.get('/get-all-users', getAllUsers);a  
-// userRoutes.get('/get-user', getUser);
+userRoutes.post('/add-user', addUser);
 userRoutes.put('/update-user', updateUser);
 userRoutes.delete('/delete-user', deleteUser);
 

@@ -20,14 +20,17 @@ main()
 app.use(express.json());
 app.use(morgan('dev'));
 
-// const cartRoutes = require('./Routes/cart.routes')
-// app.use('/api/cart',cartRoutes);
+const cartRoutes = require('./Routes/cart.routes');
+app.use('/api/cart',cartRoutes);
 
 const userRoutes= require('./Routes/user.routes');
 app.use('/api/user',userRoutes)
 
-// const  product2Routes = require('./Routes/product.routes');
-// app.use('/api/products',product2Routes);
+const  productRoutes = require('./Routes/product.routes');
+app.use('/api/products',productRoutes);
+
+const orderRoutes = require('./Routes/order.routes'); 
+app.use('/api/order',orderRoutes);
 
 app.listen(port,()=> {
     console.log(`server start at http://localhost:${port}`);

@@ -82,10 +82,11 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getUser = async (req,res) => {
   try {
-    let userId = req.query.user._Id;
-    // let user = await User.findById(userId);
-    let user = await User.findOne({_id : userId,isDelete : false });
-
+    let userId = req.user._id;
+    console.log(userId);
+    let user = await User.findById(userId);
+    // let user = await User.findOne({_id: userId,isDelete : false });
+  
     if(!user) {
        return res.status(404).json({message: 'User not found'});
     }

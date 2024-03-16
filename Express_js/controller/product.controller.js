@@ -1,4 +1,4 @@
-const Product = require('../model/product2.model');
+const Product = require('../model/product.model');
 // const bcrypt = require('bcrypt');
 
 exports.addProduct = async (req,res) => {
@@ -12,7 +12,7 @@ exports.addProduct = async (req,res) => {
             catagory
         });
         newProduct.save();
-        res.status(201).json ({product : newProduct, message : 'new User Added'});
+        res.status(201).json ({product : newProduct, message : 'new product Added'});
     } catch (error)
       {
         console.log(error);
@@ -34,12 +34,12 @@ exports.getProduct = async (req,res) => {
   try {
     let productId = req.query.productId;
     // let user = await User.findById(userId);
-    let product = await Product.findOne({ title: productId });
+    let product = await Product.findById({_id: productId, isDelete:false});
 
     if(!product) {
-       return res.status(404).json({message: 'User not found'});
+       return res.status(404).json({message: 'product not found'});
     }
-    res.status(200).json(user);
+    res.status(200).json(product);
   }
   catch(error) {
     console.log(error);
@@ -52,7 +52,7 @@ exports.updateProduct = async (req,res) => {
     let productId = req.query.productId;
     let product = await Product.findById(productId);
     if(!product) {
-       return res.status(404).json({message: 'User not found'});
+       return res.status(404).json({message: 'User product found'});
     }
     // user = await User.findByIdAndUpadate(user._id, { $set: {...req.body} }, { new: true});
     product = await Product.findOneAndUpdate({_id:product._id},{ $set: {...req.body} }, { new: true});
