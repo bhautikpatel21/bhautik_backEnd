@@ -4,14 +4,14 @@ const Cart = require('../model/cart.model');
 exports.newOrder = async (req,res) => {
     try {
         let cartItems = await Cart.find({user: req.user._id, isDelete: false}).populate('cartItem');
-        // res.sewnd(cartItems);
+        // console.log(cartItems);
         let orderItems = cartItems.map(item => ({
-            product: item.cartItems._id,
+            product: item.cartItem._id,
             quantity: item.quantity,
-            price: item.cartItems.price
+            price: item.cartItem.price
         }));
         // console.log(orderItems);
-        let totalPrice = orderItems. reduce((total,item) => total + (item.price * item.quantity),100);
+        let totalPrice = orderItems.reduce((total,item) => total + (item.price * item.quantity), 0);
         // console.log(totalPrice);
         let newOrder = await order.create({
             user: req.user._id,
@@ -19,8 +19,8 @@ exports.newOrder = async (req,res) => {
             totalAmount: totalPrice
         });
         newOrder.save();
-        await Cart.updateMany({ user: req.user._id }, { $set: { isDelete: true }});
-        res.status(201).json({order: newOrder, message: 'Order palce sucess'});
+        // await Cart.updateMany({ user: req.user._id }, { $set: { isDelete: true }});
+        res.status(201).json({order: newOrder, message: 'Order palce success'});
     }
     catch(error) {
         console.log(error);
