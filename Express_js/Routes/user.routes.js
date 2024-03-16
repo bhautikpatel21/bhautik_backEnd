@@ -16,8 +16,10 @@ const {
     getUser,
     getAllUsers,  
     updateUser,
-    deleteUser
+    deleteUser,
+    addNewUser
 } = require('../controller/user.controller');
+const { upload } = require('../helpers/imageUpload');
 
 userRoutes.get('/get-all-users',verifyToken, getAllUsers);
 userRoutes.get('/get-user',verifyToken, getUser)
@@ -27,5 +29,6 @@ userRoutes.post('/add-user', addUser);
 userRoutes.put('/update-user', updateUser);
 userRoutes.delete('/delete-user', deleteUser);
 
-module.exports = userRoutes;
+userRoutes.post('add-user',upload.single('profileImage'), addNewUser );
 
+module.exports = userRoutes;

@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT;
 const morgan = require('morgan');
-
+const path = require('path');
 const mongoose = require('mongoose');
 // Database connection
 
@@ -17,8 +17,10 @@ main()
 .catch(err => console.log(err));
 
 // MiddleWare 
+let imagePath = path.join(__dirname,'public','images');
 app.use(express.json());
 app.use(morgan('dev'));
+app.use('/public/images', express.static(imagePath));
 
 const cartRoutes = require('./Routes/cart.routes');
 app.use('/api/cart',cartRoutes);
