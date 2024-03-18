@@ -25,10 +25,10 @@ userRoutes.get('/get-all-users',verifyToken, getAllUsers);
 userRoutes.get('/get-user',verifyToken, getUser)
 userRoutes.post('/register-user', registerUser);
 userRoutes.post('/login-user', loginUser);
-userRoutes.post('/add-user', addUser);
-userRoutes.put('/update-user', updateUser);
-userRoutes.delete('/delete-user', deleteUser);
+// userRoutes.post('/add-user', addUser);
+// userRoutes.put('/update-user', updateUser);
+// userRoutes.delete('/delete-user', deleteUser);
 
-userRoutes.post('add-user',upload.single('profileImage'), addNewUser );
+userRoutes.post('/add-user',upload.single('profileImage'), addNewUser );
 
 module.exports = userRoutes;

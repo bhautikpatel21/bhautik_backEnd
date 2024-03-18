@@ -24,7 +24,6 @@ app.use('/public/images', express.static(imagePath));
 
 const cartRoutes = require('./Routes/cart.routes');
 app.use('/api/cart',cartRoutes);
-
 const userRoutes= require('./Routes/user.routes');
 app.use('/api/user',userRoutes)
 
