@@ -4,8 +4,8 @@ const path = require('path');
 const ejs = require('ejs');
 // const product = require('./public/product.json');
 
-server.set("view engine","hbs");
-// server.set("view engine","ejs");
+// server.set("view engine","hbs");
+server.set("view engine","ejs");
 
 server.get('/student',(req,res) => {
     let data = {
