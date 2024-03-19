@@ -98,7 +98,7 @@ exports.addProduct = async(req,res) => {
 exports.getAllProducts = async (req,res) => {
   let products = await productServices.getAllProduct({isDelete: false});
   res.status(200).json(products);
-}
+};
 
 exports.getProduct = async(req,res) => {
    const id = req.query.id;

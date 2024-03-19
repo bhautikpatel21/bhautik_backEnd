@@ -48,4 +48,32 @@ exports.getCart = async (req,res) => {
         console.log(error);
         res.status(500).json({ message: 'Internal server error'});
     }
-}
+};
+exports.updateCart = async (req, res) => {
+    try {
+        let cart = await Cart.findOne({_id: req.query.cartId});
+        if (!cart) {
+            return res.status(404).json({ message: ` Cart Not Found...${console.error()}` });
+        }
+        cart = await  Cart.findByIdAndUpdate(cart._id, {$set :{ ...req.body}}, { new: true}).populate('user').populate('cartItem');
+        res.status(200).json({cart, message: `Cart Item Upadated Successfully...`});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message : `Internal Server Error.... ${console.error()}`});
+    }
+};
+
+exports.deleteCart = async (req, res) => {
+    try {
+        let cart = await Cart.findOne({_id: req.query.cartId });
+        if (!cart) {
+            return res.status(404).json({ message: `Cart Not Found...${console.error()}` });        
+        }
+        cart = await Cart.findOneAndUpdate(cart._id, { isDelete: true}, { new : true});
+        console.log(cart._id);
+        res.status(200).json({cart, message: `Cart Iteam Deleted Successfuly`});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message : `Internal Server Error.... ${console.error()}`});
+    }
+};

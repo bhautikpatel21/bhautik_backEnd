@@ -17,21 +17,22 @@ main()
 .catch(err => console.log(err));
 
 // MiddleWare 
-let imagePath = path.join(__dirname,'public','images');
-app.use(express.json());
-app.use(morgan('dev'));
-app.use('/public/images', express.static(imagePath));
+// let imagePath = path.join(__dirname,'public','images');
+// app.use(express.json());
+// app.use(morgan('dev'));
+// app.use('/public/images', express.static(imagePath));
 
 const cartRoutes = require('./Routes/cart.routes');
 app.use('/api/cart',cartRoutes);
-const userRoutes= require('./Routes/user.routes');
-app.use('/api/user',userRoutes)
 
-const  productRoutes = require('./Routes/product.routes');
-app.use('/api/products',productRoutes);
+// const userRoutes= require('./Routes/user.routes');
+// app.use('/api/user',userRoutes)
 
-const orderRoutes = require('./Routes/order.routes'); 
-app.use('/api/order',orderRoutes);
+// const  productRoutes = require('./Routes/product.routes');
+// app.use('/api/products',productRoutes);
+
+// const orderRoutes = require('./Routes/order.routes'); 
+// app.use('/api/order',orderRoutes);
 
 app.listen(port,()=> {
     console.log(`server start at http://localhost:${port}`);
